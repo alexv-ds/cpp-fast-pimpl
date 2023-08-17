@@ -1,6 +1,8 @@
 # cpp-fast-pimpl - impelementation fast pimpl idiom
 
 ![GitHub](https://img.shields.io/github/license/sasichkamega/cpp-fast-pimpl)
+![GitHub tag (with filter)](https://img.shields.io/github/v/tag/sasichkamega/cpp-fast-pimpl)
+
 
 ## Introduction
 
