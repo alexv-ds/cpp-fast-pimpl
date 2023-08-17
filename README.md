@@ -1,4 +1,4 @@
-# cpp-fast-pimpl - impelementation `fast pimpl' idiom
+# cpp-fast-pimpl - impelementation fast pimpl idiom
 
 ![GitHub](https://img.shields.io/github/license/sasichkamega/cpp-fast-pimpl)
 
