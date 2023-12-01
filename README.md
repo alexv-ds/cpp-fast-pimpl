@@ -3,7 +3,6 @@
 ![GitHub](https://img.shields.io/github/license/sasichkamega/cpp-fast-pimpl)
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/sasichkamega/cpp-fast-pimpl)
 
-
 ## Introduction
 
 There are several techniques to hide the implementation details of a class, one of which are the idioms `pimpl`
@@ -33,19 +32,20 @@ MyClass.hpp
 ```c++
 class MyClass {
 public:
-  MyClass(); //implement in cpp
-  ~MyClass(); //implement in cpp
+  //ctor, dtor - required
+  MyClass(); 
+  ~MyClass();
 
-  //if support for copy semantics is needed
-  //MyClass(const MyClass&); //implement in cpp
-  //MyClass& operator=(const MyClass&); //implement in cpp
+  //move semantics - optional
+  MyClass(const MyClass&); 
+  MyClass& operator=(const MyClass&); 
 
-  //if support for move semantics is needed
-  //MyClass(MyClass&&); //implement in cpp
-  //MyClass& operator=(MyClass&&); //implement in cpp
+  //move semantics - optional
+  MyClass(MyClass&&);
+  MyClass& operator=(MyClass&&);
 private:
   struct Impl;
-  FastPimpl<Impl, 16, 8> impl; //where 16 - Impl struct size, 8 - Impl struct aligment 
+  FastPimpl<Impl, 16, 8> impl; //16 - Impl struct size, 8 - Impl struct aligment 
 };
 ```
 
@@ -56,14 +56,15 @@ struct MyClass::Impl {
   //some impl
 };
 
-MyClass::MyClass() = default; //Your implementation or default
-MyClass::~MyClass() = default; //Your implementation or default
+//ctor, dtor - required
+MyClass::MyClass() = default; 
+MyClass::~MyClass() = default;
 
-//copy semantics
-MyClass::MyClass(const MyClass&) = default; //optional
-MyClass::MyClass& operator=(const MyClass&) = default; //optional
+//copy semantics - optional
+MyClass::MyClass(const MyClass&) = default;
+MyClass::MyClass& operator=(const MyClass&) = default;
 
-//move semantics
-MyClass(MyClass&&) = default; //optional
-MyClass& operator=(MyClass&&) = default; //optional
+//move semantics - optional
+MyClass(MyClass&&) = default;
+MyClass& operator=(MyClass&&) = default;
 ```
