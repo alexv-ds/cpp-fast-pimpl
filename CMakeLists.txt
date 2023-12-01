@@ -6,7 +6,7 @@ if(NOT PROJECT_IS_TOP_LEVEL)
                        To use FastPimpl.h - copy the file to the desired location and include it.")
 endif()
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(BUILD_TESTING ON CACHE BOOL "")
