@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(FastPimpl VERSION 1.0.0 LANGUAGES CXX)
+project(FastPimpl VERSION 1.0.1 LANGUAGES CXX)
 
 if(NOT PROJECT_IS_TOP_LEVEL)
   message(FATAL_ERROR "This Cmake project is made for running tests. You cannot use it as a subproject. \
@@ -46,6 +46,7 @@ add_executable(tests
   tests/access-operators.cpp
   tests/copy-semantics.cpp
   tests/move-semantics.cpp
+  tests/compile-check.cpp
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
 target_include_directories(tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

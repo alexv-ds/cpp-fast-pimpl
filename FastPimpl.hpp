@@ -38,7 +38,7 @@ private:
 template<class T, std::size_t Size, std::size_t Align>
 template<class... Args>
 inline FastPimpl<T, Size, Align>::FastPimpl(Args&& ... args) noexcept(std::is_nothrow_constructible_v<T, Args...>) {
-  static_assert(sizeof(T) >= Size);
+  static_assert(sizeof(T) <= Size);
   static_assert(alignof(T) == Align);
   new(this->storage) T(std::forward<Args>(args)...);
 }
