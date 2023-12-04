@@ -36,7 +36,7 @@ public:
   MyClass(); 
   ~MyClass();
 
-  //move semantics - optional
+  //copy semantics - optional
   MyClass(const MyClass&); 
   MyClass& operator=(const MyClass&); 
 
