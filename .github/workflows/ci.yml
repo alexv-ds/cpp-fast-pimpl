@@ -1,7 +1,7 @@
 name: CI
 on: [push, pull_request]
 jobs:
-  tests-gcc:
+  cmake-configure-check:
     runs-on: ubuntu-latest
     steps:
       - 
@@ -10,6 +10,6 @@ jobs:
         with:
           cmake-version: '3.21.x'
       - 
-        name: check version
-        run: cmake --version
+        name: Configure project
+        run: cmake -B build
   
