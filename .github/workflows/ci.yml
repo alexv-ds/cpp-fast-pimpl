@@ -1,0 +1,15 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  tests-gcc:
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.14
+        with:
+          cmake-version: '3.21.x'
+      - 
+        name: check version
+        run: cmake --version
+  
