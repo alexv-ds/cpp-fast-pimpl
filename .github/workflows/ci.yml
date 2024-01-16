@@ -3,6 +3,9 @@ on: [push, pull_request]
 jobs:
   cmake-configure-check:
     runs-on: ubuntu-latest
+    strategy: 
+      matrix:
+        cmake_version: ['3.21.x', 'latest']
     steps:
       -
         uses: actions/checkout@v4
