@@ -21,9 +21,27 @@ initialize the additional space with your hidden class, thus all your data in th
 this will give a performance boost. Among the disadvantages of `fast pimpl` it should be noted that you will need to
 know the size and aligment of the hidden class at the compilation stage.
 
-## Using `FastPimpl.hpp`
+## Using `fpimpl.hpp`
 
-Simply copy the header file to the location you want.
+### Use CPM.cmake ([more info](https://github.com/cpm-cmake/CPM.cmake))
+
+```cmake
+CPMAddPackage("gh:alexv-ds/cpp-fast-pimpl@2.0.0")
+target_link_libraries(example PRIVATE fpimpl::fpimpl)
+```
+
+### Git submodule
+
+Add this repository as a submodule of your project and add the dirrectory in your CMakeListst.txt 
+
+```cmake
+add_subdirectory("path/to/fpimpl/subproject")
+target_link_libraries(example PRIVATE fpimpl::fpimpl)
+```
+
+### Header copy
+
+Due to the fact that this library is just a single header file. Simply copy the header file to the location you want. And use it.
 
 ## Example
 
@@ -45,7 +63,7 @@ public:
   MyClass& operator=(MyClass&&);
 private:
   struct Impl;
-  FastPimpl<Impl, 16, 8> impl; //16 - Impl struct size, 8 - Impl struct aligment 
+  fpimpl<Impl, 16, 8> impl; //16 - Impl struct size, 8 - Impl struct aligment 
 };
 ```
 
