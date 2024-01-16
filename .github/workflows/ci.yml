@@ -4,6 +4,8 @@ jobs:
   cmake-configure-check:
     runs-on: ubuntu-latest
     steps:
+      -
+        uses: actions/checkout@v4
       - 
         name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v1.14
