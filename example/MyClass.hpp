@@ -1,5 +1,5 @@
 #pragma once
-#include <FastPimpl.hpp>
+#include <fpimpl.hpp>
 
 class MyClass {
 public:
@@ -8,6 +8,6 @@ public:
   ~MyClass();
 private:
   struct Impl;
-  FastPimpl<Impl, 4, 4> impl;
+  fpimpl<Impl, 4, 4> impl;
 };
 
