@@ -1,4 +1,4 @@
-name: ci-tests
+name: CI Testing
 on: [push, pull_request]
 
 env:
