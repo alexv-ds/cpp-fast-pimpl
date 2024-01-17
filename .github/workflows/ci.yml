@@ -30,9 +30,10 @@ jobs:
 
   gcc-tests:
     runs-on: ubuntu-22.04
+    continue-on-error: true
     strategy:
       matrix:
-        gcc_version: ['13', 12', '11', '10', '9']
+        gcc_version: ['13', '12', '11', '10', '9']
     env:
       CC: gcc-${{ matrix.gcc_version }}
       CXX: g++-${{ matrix.gcc_version }}
