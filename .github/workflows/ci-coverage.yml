@@ -2,13 +2,12 @@ name: CI Testing
 on: [push, pull_request]
 
 env:
-  CPM_SOURCE_CACHE: ${{ vars.CPM_SOURCE_CACHE }}
+  CPM_SOURCE_CACHE: ${{ github.workspace }}/cpm-cache
+  FPIMPL_BUILD_DIR: ${{ github.workspace }}/build
 
 jobs:
   coverage:
     runs-on: ubuntu-22.04
-    env:
-      FPIMPL_BUILD_DIR: ~/fpimpl-build
     steps:
       -
         name: Install gcovr
@@ -35,9 +34,6 @@ jobs:
       - 
         name: Generate coverage report
         run: cmake --build ${{ env.FPIMPL_BUILD_DIR }} --target coverage_xml
-
-      - run: sudo find / | grep coverage_xml.xml
-
       -
         name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v3
