@@ -54,6 +54,6 @@ jobs:
         run: cmake --build ${{ env.FPIMPL_BUILD_DIR }} --parallel
       - 
         name: Run tests
-        run: ctest --parallel 12 --test-dir ${{ vars.CPM_SOURCE_CACHE }}
+        run: ctest --parallel 12 --test-dir ${{ env.FPIMPL_BUILD_DIR }}
       
     
