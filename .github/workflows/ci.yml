@@ -28,15 +28,22 @@ jobs:
         name: Configure project
         run: cmake -B ~/fpimpl-build
 
-  gcc-ubuntu-22-04-tests:
+  tests:
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
-        gcc_version: ['13', '12', '11', '10', '9', '123']
+        compiler: [
+          # {CC: gcc-9, CXX: g++9},
+          # {CC: gcc-10, CXX: g++10},
+          # {CC: gcc-11, CXX: g++11},
+          # {CC: gcc-12, CXX: g++12},
+          # {CC: gcc-13, CXX: g++13},
+          {CC: clang-17, CXX: clang++-17},
+        ]
     env:
-      CC: gcc-${{ matrix.gcc_version }}
-      CXX: g++-${{ matrix.gcc_version }}
+      CC: ${{ matrix.compiler.CC }}
+      CXX: ${{ matrix.compiler.CXX }}
       FPIMPL_BUILD_DIR: ~/fpimpl-build
     steps:
       -
@@ -56,13 +63,7 @@ jobs:
       - 
         name: Run tests
         run: ctest --parallel 12 --test-dir ${{ env.FPIMPL_BUILD_DIR }} --no-tests=error --output-on-failure
-  
-  # clang-ubuntu-22-04-tests:
-  #   runs-on: ubuntu-22.04
-  #   continue-on-error: true
-  #   strategy:
-  #     matrix: 
-  #       clang_version: ['17']
+
 
   
       
