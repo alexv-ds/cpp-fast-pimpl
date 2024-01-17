@@ -27,4 +27,3 @@ jobs:
       - 
         name: Configure project
         run: cmake -B ~/fpimpl-build
-  
