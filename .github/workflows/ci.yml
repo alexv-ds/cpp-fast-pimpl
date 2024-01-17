@@ -1,5 +1,9 @@
 name: CI
 on: [push, pull_request]
+
+env:
+  CPM_SOURCE_CACHE: ${{ vars.CPM_SOURCE_CACHE }}
+
 jobs:
   cmake-configure-check:
     runs-on: ubuntu-latest
@@ -13,8 +17,14 @@ jobs:
         name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v1.14
         with:
-          cmake-version: '3.21.x'
+          cmake-version: ${{ matrix.cmake_version }}
+      -
+        uses: actions/cache@v3
+        with:
+          key: cpm-cache-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake') }}
+          path: ${{ vars.CPM_SOURCE_CACHE }}
+          enableCrossOsArchive: true
       - 
         name: Configure project
-        run: cmake -B build
+        run: cmake -B ~/fpimpl-build
   
