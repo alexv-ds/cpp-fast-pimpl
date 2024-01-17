@@ -1,8 +1,9 @@
 # cpp-fast-pimpl - impelementation fast pimpl idiom
 
+[![ci-tests](https://github.com/alexv-ds/cpp-fast-pimpl/actions/workflows/ci-tests.yml/badge.svg?branch=main&event=push)](https://github.com/alexv-ds/cpp-fast-pimpl/actions/workflows/ci-tests.yml)
+[![codecov](https://codecov.io/gh/alexv-ds/cpp-fast-pimpl/graph/badge.svg?token=KCVH4WEFUK)](https://codecov.io/gh/alexv-ds/cpp-fast-pimpl)
 ![GitHub](https://img.shields.io/github/license/sasichkamega/cpp-fast-pimpl)
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/sasichkamega/cpp-fast-pimpl)
-[![ci-tests](https://github.com/alexv-ds/cpp-fast-pimpl/actions/workflows/ci-tests.yml/badge.svg?branch=main&event=push)](https://github.com/alexv-ds/cpp-fast-pimpl/actions/workflows/ci-tests.yml)
 
 ## Introduction
 
