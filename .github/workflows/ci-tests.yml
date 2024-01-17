@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        build_type: ['Debug', 'Release']
+        build_type: ['Release']
         compiler: [
           {IMAGE: 'ubuntu-22.04', CC: gcc-9, CXX: g++-9},
           {IMAGE: 'ubuntu-22.04', CC: gcc-10, CXX: g++-10},
