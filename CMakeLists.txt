@@ -31,6 +31,36 @@ if(NOT CMAKE_CXX_EXTENSIONS)
 endif()
 
 ##################################
+######## PRE TARGET INIT #########
+##################################
+
+if(FPIMPL_BUILD_TESTS OR FPIMPL_INSTALL)
+  list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+  include(get_cpm)
+endif()
+
+if(FPIMPL_BUILD_TESTS)
+  CPMAddPackage(GITHUB_REPOSITORY catchorg/Catch2 VERSION 3.5.2 OPTIONS
+    "CATCH_INSTALL_DOCS OFF"
+    "CATCH_INSTALL_EXTRAS OFF"
+  )
+
+  list(APPEND CMAKE_MODULE_PATH ${Catch2_SOURCE_DIR}/extras)
+  include(Catch)
+endif()
+
+if(FPIMPL_BUILD_TESTS AND FPIMPL_COVERAGE)
+  set(COVERAGE_EXCLUDES
+    "${Catch2_SOURCE_DIR}"
+    "${CMAKE_CURRENT_SOURCE_DIR}/tests"
+  )
+  include(CodeCoverage)
+  append_coverage_compiler_flags()
+endif()
+
+
+
+##################################
 ########### TARGETS ##############
 ##################################
 add_library(fpimpl INTERFACE include/fpimpl.hpp)
@@ -39,7 +69,7 @@ add_library(${PROJECT_NAME}::fpimpl ALIAS fpimpl)
 target_compile_features(fpimpl INTERFACE cxx_std_17)
 target_compile_options(fpimpl INTERFACE
   $<$<BOOL:${FPIMPL_ENABLE_WALL_WERROR}>:
-  $<IF:$<CXX_COMPILER_ID:MSVC>,/W4 /WX,-Wall -Wextra -Wpedantic -Werror>
+    $<IF:$<CXX_COMPILER_ID:MSVC>,/W4 /WX,-Wall -Wextra -Wpedantic -Werror>
   >
 )
 
@@ -60,19 +90,9 @@ endif()
 ##################################
 ############ TESTS ###############
 ##################################
-if(FPIMPL_BUILD_TESTS OR FPIMPL_INSTALL)
-  list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-  include(get_cpm)
-endif()
-
 if(FPIMPL_BUILD_TESTS)
-  CPMAddPackage(GITHUB_REPOSITORY catchorg/Catch2 VERSION 3.5.2 OPTIONS
-    "CATCH_INSTALL_DOCS OFF"
-    "CATCH_INSTALL_EXTRAS OFF"
-  )
-  list(APPEND CMAKE_MODULE_PATH ${Catch2_SOURCE_DIR}/extras)
   include(CTest)
-  include(Catch)
+  enable_testing()
 
   add_executable(tests
     tests/constructor-destructor.cpp
@@ -87,19 +107,23 @@ if(FPIMPL_BUILD_TESTS)
   )
   catch_discover_tests(tests)
 
+  include(ProcessorCount)
+  cmake_host_system_information(RESULT PROCESSOR_COUNT QUERY NUMBER_OF_LOGICAL_CORES)
+  
   if(FPIMPL_COVERAGE)
-    include(CodeCoverage)
-    include(ProcessorCount)
+    setup_target_for_coverage_gcovr_html(
+      NAME coverage_html
+      EXECUTABLE ctest -j ${PROCESSOR_COUNT}
+      DEPENDENCIES tests
+      BASE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
 
-    cmake_host_system_information(RESULT PROCESSOR_COUNT QUERY NUMBER_OF_LOGICAL_CORES)
-
-    append_coverage_compiler_flags()
-#    setup_target_for_coverage_lcov_html(
-#      NAME ctest_coverage
-#      EXECUTABLE ctest -j ${PROCESSOR_COUNT}
-#      DEPENDENCIES tests
-#      BASE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-#    )
+    setup_target_for_coverage_gcovr_xml(
+      NAME coverage_xml
+      EXECUTABLE ctest -j ${PROCESSOR_COUNT}
+      DEPENDENCIES tests
+      BASE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
   endif()
 endif()
 
