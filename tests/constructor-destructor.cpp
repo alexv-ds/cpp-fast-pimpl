@@ -1,7 +1,7 @@
 #include <mutex>
 #include <memory>
 #include <catch2/catch_test_macros.hpp>
-#include <FastPimpl.hpp>
+#include <fpimpl.hpp>
 
 namespace {
 
@@ -25,15 +25,15 @@ private:
 std::mutex TestClass::mutex;
 //endregion
 
-TEST_CASE("'FastPimpl::FastPimpl' initializes correctly") {
+TEST_CASE("'fpimpl::fpimpl' initializes correctly") {
   REQUIRE(g_struct_initialised == false);
-  FastPimpl<TestClass, sizeof(TestClass), alignof(TestClass)> pimpl;
+  fpimpl<TestClass, sizeof(TestClass), alignof(TestClass)> pimpl;
   REQUIRE(g_struct_initialised == true);
 }
 
-TEST_CASE("'FastPimpl::~FastPimpl' destructs correctly") {
+TEST_CASE("'fpimpl::~fpimpl' destructs correctly") {
   auto p_pimpl = std::make_unique<
-    FastPimpl<TestClass, sizeof(TestClass), alignof(TestClass)>
+    fpimpl<TestClass, sizeof(TestClass), alignof(TestClass)>
   >();
   REQUIRE(g_struct_initialised == true);
   p_pimpl = nullptr;
@@ -63,10 +63,10 @@ private:
 std::mutex TestClass2::mutex;
 //endregion
 
-TEST_CASE("'FastPimpl::FastPimpl' pass args correctly") {
+TEST_CASE("'fpimpl::fpimpl' pass args correctly") {
   REQUIRE(g_var1 == 0);
   REQUIRE(g_var2 == 0);
-  FastPimpl<TestClass2, sizeof(TestClass2), alignof(TestClass2)> pimpl(123, 321);
+  fpimpl<TestClass2, sizeof(TestClass2), alignof(TestClass2)> pimpl(123, 321);
   REQUIRE(g_var1 == 123);
   REQUIRE(g_var2 == 321);
 }

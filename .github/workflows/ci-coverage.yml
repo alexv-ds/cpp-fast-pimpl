@@ -1,0 +1,44 @@
+name: CI Coverage
+on: [push, pull_request]
+
+env:
+  CPM_SOURCE_CACHE: ${{ github.workspace }}/cpm-cache
+  FPIMPL_BUILD_DIR: ${{ github.workspace }}/build
+
+jobs:
+  coverage:
+    runs-on: ubuntu-22.04
+    steps:
+      -
+        name: Install gcovr
+        run: sudo apt-get update -y && sudo apt-get install -y gcovr
+      -
+        uses: actions/checkout@v4
+      -
+        uses: actions/cache@v3
+        with:
+          key: cpm-cache-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake') }}
+          path: ${{ vars.CPM_SOURCE_CACHE }}
+          enableCrossOsArchive: true
+      - 
+        name: Configure project
+        run: | 
+          cmake -B ${{ env.FPIMPL_BUILD_DIR }} \
+                -DFPIMPL_BUILD_EXAMPLE=OFF \
+                -DFPIMPL_ENABLE_WALL_WERROR=OFF \
+                -DCMAKE_BUILD_TYPE=Debug \
+                -DFPIMPL_COVERAGE=ON
+      - 
+        name: Build project
+        run: cmake --build ${{ env.FPIMPL_BUILD_DIR }} --parallel
+      - 
+        name: Generate coverage report
+        run: cmake --build ${{ env.FPIMPL_BUILD_DIR }} --target coverage_xml
+      -
+        name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ env.FPIMPL_BUILD_DIR }}/coverage_xml.xml
+          fail_ci_if_error: true
+

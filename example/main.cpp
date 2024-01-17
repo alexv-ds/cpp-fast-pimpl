@@ -1,5 +1,5 @@
+#include <fpimpl.hpp>
 #include "MyClass.hpp"
-
 
 int main() {
   MyClass my_class;
