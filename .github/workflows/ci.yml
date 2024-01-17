@@ -30,8 +30,8 @@ jobs:
 
   gcc-ubuntu-22-04-tests:
     runs-on: ubuntu-22.04
-    continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
         gcc_version: ['13', '12', '11', '10', '9', '123']
     env:
