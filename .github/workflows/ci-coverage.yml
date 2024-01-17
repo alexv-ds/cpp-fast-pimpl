@@ -35,10 +35,14 @@ jobs:
       - 
         name: Generate coverage report
         run: cmake --build ${{ env.FPIMPL_BUILD_DIR }} --target coverage_xml
+
+      - run: find / | grep coverage_xml.xml
+      
       -
         name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ${{ env.FPIMPL_BUILD_DIR }}/coverage_xml.xml
+          fail_ci_if_error: true
 
