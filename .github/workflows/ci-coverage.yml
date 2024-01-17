@@ -11,6 +11,9 @@ jobs:
       FPIMPL_BUILD_DIR: ~/fpimpl-build
     steps:
       -
+        name: Install gcovr
+        run: apt-get update && apt-get install gcovr
+      -
         uses: actions/checkout@v4
       -
         uses: actions/cache@v3
@@ -35,6 +38,7 @@ jobs:
       -
         name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ env.FPIMPL_BUILD_DIR }}/coverage_xml.xml
 
