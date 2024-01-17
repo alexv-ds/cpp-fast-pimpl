@@ -21,8 +21,4 @@ TEST_CASE("'fpimpl::operator=(const fpimpl& pimpl)' copies correctly") {
   REQUIRE((*pimpl_2) == "TEST_12");
 }
 
-TEST_CASE("fail test") {
-  REQUIRE(1 == 2);
-}
-
 }
