@@ -27,3 +27,33 @@ jobs:
       - 
         name: Configure project
         run: cmake -B ~/fpimpl-build
+
+  gcc-tests:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        gcc_version: ['12']
+    env:
+      CC: gcc-${{ matrix.gcc_version }}
+      CXX: g++-${{ matrix.gcc_version }}
+      FPIMPL_BUILD_DIR: ~/fpimpl-build
+    steps:
+      -
+        uses: actions/checkout@v4
+      -
+        uses: actions/cache@v3
+        with:
+          key: cpm-cache-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake') }}
+          path: ${{ vars.CPM_SOURCE_CACHE }}
+          enableCrossOsArchive: true
+      - 
+        name: Configure project
+        run: cmake -B ${{ env.FPIMPL_BUILD_DIR }} -DFPIMPL_BUILD_EXAMPLE=OFF
+      - 
+        name: Build project
+        run: cmake --build ${{ env.FPIMPL_BUILD_DIR }} --parallel
+      - 
+        name: Run tests
+        run: ctest --parallel 12 --test-dir ${{ vars.CPM_SOURCE_CACHE }}
+      
+    
