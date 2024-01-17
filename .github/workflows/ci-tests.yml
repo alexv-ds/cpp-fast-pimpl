@@ -52,8 +52,3 @@ jobs:
       - 
         name: Run tests
         run: ctest --parallel 12 --test-dir ${{ env.FPIMPL_BUILD_DIR }} --no-tests=error --output-on-failure
-
-
-  
-      
-    
