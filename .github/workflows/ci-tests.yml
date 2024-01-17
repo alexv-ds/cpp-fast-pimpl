@@ -1,11 +1,11 @@
-name: CI
+name: ci-tests
 on: [push, pull_request]
 
 env:
   CPM_SOURCE_CACHE: ${{ vars.CPM_SOURCE_CACHE }}
 
 jobs:
-  cmake-configure-check:
+  configure-check:
     runs-on: ubuntu-latest
     strategy: 
       matrix:
