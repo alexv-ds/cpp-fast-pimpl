@@ -28,7 +28,7 @@ know the size and aligment of the hidden class at the compilation stage.
 ### Use CPM.cmake ([more info](https://github.com/cpm-cmake/CPM.cmake))
 
 ```cmake
-CPMAddPackage("gh:alexv-ds/cpp-fast-pimpl@2.0.0")
+CPMAddPackage("gh:alexv-ds/cpp-fast-pimpl@2.0.0-rc.1")
 target_link_libraries(example PRIVATE fpimpl::fpimpl)
 ```
 
