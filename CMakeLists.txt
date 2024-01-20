@@ -101,7 +101,15 @@ if(FPIMPL_BUILD_TESTS)
     tests/copy-semantics.cpp
     tests/move-semantics.cpp
     tests/compile-check.cpp
+    tests/self-assign.cpp
   )
+
+  # disable the -Wself-assign-overloaded warning for one test when compiling with clang
+  set_property(
+    SOURCE tests/self-assign.cpp
+    PROPERTY COMPILE_FLAGS $<$<CXX_COMPILER_ID:Clang>:-Wno-self-assign-overloaded>
+  )
+  
   target_link_libraries(tests PRIVATE
     fpimpl
     Catch2::Catch2WithMain
