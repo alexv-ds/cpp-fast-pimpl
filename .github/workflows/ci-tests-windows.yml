@@ -4,7 +4,6 @@ on: [push, pull_request]
 env:
   CPM_SOURCE_CACHE: cpm-cache
   FPIMPL_BUILD_DIR: build
-  FPIMPL_BUILD_TYPE: Release
 
 jobs:
   tests-windows:
@@ -21,10 +20,10 @@ jobs:
       - 
         name: Configure project
         run: | 
-          cmake -B ${{ env.FPIMPL_BUILD_DIR }} -DFPIMPL_BUILD_EXAMPLE=OFF -DFPIMPL_ENABLE_WALL_WERROR=ON -DCMAKE_BUILD_TYPE=${{ env.FPIMPL_BUILD_TYPE }}
+          cmake -B ${{ env.FPIMPL_BUILD_DIR }} -DFPIMPL_BUILD_EXAMPLE=OFF -DFPIMPL_ENABLE_WALL_WERROR=ON
       - 
         name: Build project
-        run: cmake --build ${{ env.FPIMPL_BUILD_DIR }} --parallel --config ${{ env.FPIMPL_BUILD_TYPE }}
+        run: cmake --build ${{ env.FPIMPL_BUILD_DIR }} --parallel --config Release
       - 
         name: Run tests
         run: ctest --parallel 12 --test-dir ${{ env.FPIMPL_BUILD_DIR }} --no-tests=error --output-on-failure
