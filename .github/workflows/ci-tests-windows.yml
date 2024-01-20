@@ -1,0 +1,19 @@
+name: CI Testing Windows
+on: [push, pull_request]
+
+env:
+  CPM_SOURCE_CACHE: $HOME/cpm-cache
+  BUILD_DIR: $HOME/build
+
+jobs:
+  tests-windows:
+    runs-on: windows-latest
+    steps:
+      -
+        uses: actions/checkout@v4
+      -
+        uses: actions/cache@v3
+        with:
+          key: cpm-cache-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake') }}
+          path: ${{ env.CPM_SOURCE_CACHE }}
+          enableCrossOsArchive: true
