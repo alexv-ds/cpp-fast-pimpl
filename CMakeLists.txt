@@ -53,6 +53,7 @@ if(FPIMPL_BUILD_TESTS AND FPIMPL_COVERAGE)
   set(COVERAGE_EXCLUDES
     "${Catch2_SOURCE_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/tests"
+    "${CMAKE_CURRENT_SOURCE_DIR}/example"
   )
   include(CodeCoverage)
   append_coverage_compiler_flags()
