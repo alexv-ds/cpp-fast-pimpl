@@ -22,7 +22,7 @@ public:
   inline T* operator->() noexcept;
   inline T const* operator->() const noexcept;
 
-  friend inline void swap(fpimpl& a, fpimpl& b) {
+  [[maybe_unused]] friend inline void swap(fpimpl& a, fpimpl& b) {
     std::swap(*a, *b);
   }
 
@@ -39,7 +39,7 @@ template<class T, std::size_t Size, std::size_t Align>
 template<class... Args>
 inline fpimpl<T, Size, Align>::fpimpl(Args&& ... args) noexcept(std::is_nothrow_constructible_v<T, Args...>) {
   static_assert(sizeof(T) <= Size);
-  static_assert(alignof(T) == Align);
+  static_assert(Align % alignof(T) == 0);
   new(this->storage) T(std::forward<Args>(args)...);
 }
 

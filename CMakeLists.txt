@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(fpimpl
-  VERSION 2.0.0
+  VERSION 2.0.1
   DESCRIPTION "C++ modern fast pimpl idiom"
   HOMEPAGE_URL "https://github.com/sasichkamega/cpp-fast-pimpl"
   LANGUAGES CXX C
