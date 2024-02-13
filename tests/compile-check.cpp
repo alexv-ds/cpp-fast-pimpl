@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <fpimpl.hpp>
 
 // Check compilation when type size is smaller than the defined size for fpimpl
