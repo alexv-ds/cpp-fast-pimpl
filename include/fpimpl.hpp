@@ -39,7 +39,7 @@ template<class T, std::size_t Size, std::size_t Align>
 template<class... Args>
 inline fpimpl<T, Size, Align>::fpimpl(Args&& ... args) noexcept(std::is_nothrow_constructible_v<T, Args...>) {
   static_assert(sizeof(T) <= Size);
-  static_assert(alignof(T) == Align);
+  static_assert(Align % alignof(T) == 0);
   new(this->storage) T(std::forward<Args>(args)...);
 }
 
