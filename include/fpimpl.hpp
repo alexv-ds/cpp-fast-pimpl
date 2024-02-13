@@ -22,7 +22,7 @@ public:
   inline T* operator->() noexcept;
   inline T const* operator->() const noexcept;
 
-  friend inline void swap(fpimpl& a, fpimpl& b) {
+  [[maybe_unused]] friend inline void swap(fpimpl& a, fpimpl& b) {
     std::swap(*a, *b);
   }
 
